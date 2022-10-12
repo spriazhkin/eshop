@@ -3,7 +3,7 @@ using DAL;
 
 namespace Domain;
 
-internal class CartFacade
+internal class CartFacade : ICartFacade
 {
     private readonly ICartRepository _repository;
     private readonly IMapper _mapper;
@@ -24,5 +24,11 @@ internal class CartFacade
     {
         var cartDb = _mapper.Map<CartDb>(cart);
         _repository.Update(cartDb);
+    }
+
+    public void Create(Cart cart)
+    {
+        var cartDb = _mapper.Map<CartDb>(cart);
+        _repository.Create(cartDb);
     }
 }
