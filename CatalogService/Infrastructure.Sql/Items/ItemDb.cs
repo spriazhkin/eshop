@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Sql;
+﻿namespace Infrastructure.Sql.Items;
 
-public record ItemDb
+public record ItemDb : IEntityDb
 {
     public Guid Id { get; set; }
 

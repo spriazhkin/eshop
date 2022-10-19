@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Sql;
+﻿namespace Infrastructure.Sql.Categories;
 
-public record CategoryDb
+public record CategoryDb : IEntityDb
 {
     public Guid Id { get; set; }
 
