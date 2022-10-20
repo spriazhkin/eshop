@@ -1,15 +1,14 @@
-﻿namespace Domain.Categories
+﻿namespace Domain.Categories;
+
+public interface ICategoryRepository
 {
-    public interface ICategoryRepository
-    {
-        Task CreateAsync(Category category);
+    Task CreateAsync(Category category);
 
-        Task DeleteAsync(Guid Id);
+    Task DeleteAsync(Guid Id);
 
-        Task<IList<Category>> GetAsync();
+    Task<IList<Category>> GetAsync();
 
-        Task<Category> GetAsync(Guid Id);
+    Task<Category> GetAsync(Guid Id);
 
-        Task UpdateAsync(Category category);
-    }
+    Task UpdateAsync(Category category);
 }

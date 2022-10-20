@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{772DAF33-0F8E-4B41-991A-11362F699472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{91F81AFA-E7C9-4FF3-82C2-3B1D79BCE91D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests.Unit", "Domain.Tests.Unit\Domain.Tests.Unit.csproj", "{91F81AFA-E7C9-4FF3-82C2-3B1D79BCE91D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Tests", "DAL.Tests\DAL.Tests.csproj", "{21CFC949-5FC2-4C88-84AF-755EB893A195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Tests.Integration", "DAL.Tests.Integration\DAL.Tests.Integration.csproj", "{21CFC949-5FC2-4C88-84AF-755EB893A195}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

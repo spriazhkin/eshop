@@ -3,18 +3,20 @@ using Domain.Categories;
 using Domain.Items;
 using Infrastructure.Sql.Categories;
 using Infrastructure.Sql.Items;
+using System.Runtime.CompilerServices;
 
-namespace Infrastructure.Sql.Configuration
+[assembly: InternalsVisibleTo("Infrastructure.Sql.Tests.Integration")]
+
+namespace Infrastructure.Sql.Configuration;
+
+public class SqlProfile : Profile
 {
-    public class SqlProfile : Profile
+    public SqlProfile()
     {
-        public SqlProfile()
-        {
-            CreateMap<Category, CategoryDb>();
-            CreateMap<CategoryDb, Category>();
+        CreateMap<Category, CategoryDb>();
+        CreateMap<CategoryDb, Category>();
 
-            CreateMap<Item, ItemDb>();
-            CreateMap<ItemDb, Item>();
-        }
+        CreateMap<Item, ItemDb>();
+        CreateMap<ItemDb, Item>();
     }
 }

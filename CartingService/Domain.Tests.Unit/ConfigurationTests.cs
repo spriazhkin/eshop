@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace Domain.Tests;
+namespace Domain.Tests.Unit;
 
 public class ConfigurationTests
 {
