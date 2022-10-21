@@ -9,14 +9,19 @@ internal class CatalogContext : DbContext
     private const string ConnectionString = "";
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public CatalogContext() : base()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
+    public CatalogContext(DbContextOptions options) : base(options)
+    {
+    }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(optionsBuilder);
-        //optionsBuilder.UseSqlite("Filename=:memory:");
+        if (optionsBuilder.IsConfigured)
+        {
+            return;
+        }
         optionsBuilder.UseSqlServer(ConnectionString);
     }
 
