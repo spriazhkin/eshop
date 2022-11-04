@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using DAL;
+using System.Runtime.CompilerServices;
 
-namespace Domain;
+[assembly:InternalsVisibleTo("Main")]
+
+namespace Domain.Configuration;
 
 public class DomainProfile : Profile
 {
