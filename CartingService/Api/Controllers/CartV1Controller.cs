@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("carts")]
-public class CartController : ControllerBase
+[Route("api/v{version:apiVersion}/carts")]
+[ApiVersion("1.0")]
+public class CartV1Controller : ControllerBase
 {
     private readonly ICartFacade _facade;
     private readonly IMapper _mapper;
 
-    public CartController(ICartFacade facade, IMapper mapper)
+    public CartV1Controller(ICartFacade facade, IMapper mapper)
     {
         _facade = facade;
         _mapper = mapper;

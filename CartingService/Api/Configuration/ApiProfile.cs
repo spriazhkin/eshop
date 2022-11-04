@@ -11,13 +11,16 @@ public class ApiProfile : Profile
 {
     public ApiProfile()
     {
-        CreateMap<Cart, CartModel>();
-        CreateMap<CartModel, Cart>();
+        CreateMap<Image, ImageModel>();
+        CreateMap<ImageModel, Image>();
 
         CreateMap<CartItemModel, CartItem>();
         CreateMap<CartItem, CartItemModel>();
 
-        CreateMap<Image, ImageModel>();
-        CreateMap<ImageModel, Image>();
+        CreateMap<Cart, CartModel>();
+        CreateMap<CartModel, Cart>();
+        CreateMap<Cart, IList<CartItemModel>>()
+            .ConvertUsing((cart, items, context) =>
+                context.Mapper.Map<IList<CartItemModel>>(cart.Items));
     }
 }
