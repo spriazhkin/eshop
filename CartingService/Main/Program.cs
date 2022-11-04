@@ -1,4 +1,8 @@
+using Api.Controllers;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,10 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+var fileName = typeof(CartV1Controller).GetTypeInfo().Assembly.GetName().Name + ".xml";
+
+var XmlCommentsFilePath = Path.Combine(basePath, fileName);
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API - V1", Version = "v1" });
     c.SwaggerDoc("v2", new OpenApiInfo { Title = "My API - V2", Version = "v2" });
+
+    c.IncludeXmlComments(XmlCommentsFilePath);
+
 });
 
 builder.Services.AddApiVersioning(o =>

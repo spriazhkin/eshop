@@ -19,6 +19,11 @@ public class CartV2Controller : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Get Cart items
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public IList<CartItemModel> Get([FromRoute] Guid id)
     {
@@ -26,6 +31,11 @@ public class CartV2Controller : ControllerBase
         return _mapper.Map<IList<CartItemModel>>(cart);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cartModel"></param>
+    /// <remarks>Same as v1</remarks>
     [HttpPost]
     public virtual void Create([FromBody] CartModel cartModel)
     {
@@ -33,6 +43,11 @@ public class CartV2Controller : ControllerBase
         _facade.Create(cart);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cartModel"></param>
+    /// <remarks>Same as v1</remarks>
     [HttpPut]
     public virtual void Update([FromBody] CartModel cartModel)
     {

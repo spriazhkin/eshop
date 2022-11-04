@@ -19,6 +19,11 @@ public class CartV1Controller : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Get Cart
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public CartModel Get([FromRoute] Guid id)
     {
@@ -26,6 +31,10 @@ public class CartV1Controller : ControllerBase
         return _mapper.Map<CartModel>(cart);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cartModel"></param>
     [HttpPost]
     public void Create([FromBody] CartModel cartModel)
     {
@@ -33,6 +42,10 @@ public class CartV1Controller : ControllerBase
         _facade.Create(cart);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cartModel"></param>
     [HttpPut]
     public void Update([FromBody] CartModel cartModel)
     {
