@@ -21,6 +21,7 @@ var fileName = typeof(CartV1Controller).GetTypeInfo().Assembly.GetName().Name + 
 var XmlCommentsFilePath = Path.Combine(basePath, fileName);
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v0", new OpenApiInfo { Title = "My API - V0", Version = "v0" });
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API - V1", Version = "v1" });
     c.SwaggerDoc("v2", new OpenApiInfo { Title = "My API - V2", Version = "v2" });
 
@@ -50,6 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
+        c.SwaggerEndpoint($"/swagger/v0/swagger.json", "Carting API - V0");
         c.SwaggerEndpoint($"/swagger/v1/swagger.json", "Carting API - V1");
         c.SwaggerEndpoint($"/swagger/v2/swagger.json", "Carting API - V2");
     });

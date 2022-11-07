@@ -4,7 +4,7 @@ public interface ICartRepository
 {
     void Create(CartDb cart);
     
-    CartDb Get(Guid id);
+    CartDb Get(string id);
     
     void Update(CartDb cart);
 }

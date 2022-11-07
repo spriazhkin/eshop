@@ -1,5 +1,4 @@
 ﻿using Api.Configuration;
-using Api.Models;
 using Api.Validators;
 using DAL;
 using Domain;

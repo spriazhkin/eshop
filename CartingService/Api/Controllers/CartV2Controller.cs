@@ -1,6 +1,8 @@
 ﻿using Api.Models;
+using Api.Models.Commands;
 using AutoMapper;
 using Domain;
+using Domain.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -25,33 +27,33 @@ public class CartV2Controller : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public IList<CartItemModel> Get([FromRoute] Guid id)
+    public IList<CartItemModel> Get([FromRoute] string id)
     {
         var cart = _facade.Get(id);
         return _mapper.Map<IList<CartItemModel>>(cart);
     }
 
     /// <summary>
-    /// 
+    /// Adds item to cart. Creates cart when it does not exist
     /// </summary>
-    /// <param name="cartModel"></param>
-    /// <remarks>Same as v1</remarks>
-    [HttpPost]
-    public virtual void Create([FromBody] CartModel cartModel)
+    /// <param name="commandModel"></param>
+    /// <remarks>Same as V1</remarks>
+    [HttpPost("add-item")]
+    public void AddItem([FromBody] AddItemCommandModel commandModel)
     {
-        var cart = _mapper.Map<Cart>(cartModel);
-        _facade.Create(cart);
+        var command = _mapper.Map<AddItemCommand>(commandModel);
+        _facade.AddItem(command);
     }
 
     /// <summary>
-    /// 
+    /// Removes items from cart
     /// </summary>
-    /// <param name="cartModel"></param>
-    /// <remarks>Same as v1</remarks>
-    [HttpPut]
-    public virtual void Update([FromBody] CartModel cartModel)
+    /// <param name="commandModel"></param>
+    /// <remarks>Same as V1</remarks>
+    [HttpPost("remove-item")]
+    public void RemoveItem([FromBody] RemoveItemCommand commandModel)
     {
-        var cart = _mapper.Map<Cart>(cartModel);
-        _facade.Update(cart);
+        var command = _mapper.Map<RemoveItemCommand>(commandModel);
+        _facade.RemoveItem(command);
     }
 }

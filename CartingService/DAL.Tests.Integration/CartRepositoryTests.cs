@@ -4,7 +4,7 @@ public class CartRepositoryTests
 {
     private const string DbDirectory = @"C:\Temp";
     private const string DbFile = @$"{DbDirectory}\CartRepositoryTests.db";
-    private readonly Guid _id = Guid.NewGuid();
+    private readonly string _id = "id1";
 
     public CartRepositoryTests()
     {
@@ -21,7 +21,7 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to create and get cart")]
     public void TestCreateGet()
     {
-        var cart = new CartDb() { Id = _id };
+        var cart = new CartDb(_id, new());
 
         var repo = new CartRepository(DbFile);
 
@@ -34,15 +34,8 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to create and get cart with data")]
     public void TestCreateGetAllProperties()
     {
-        var cartItem = new CartItemDb()
-        {
-            Id = 1,
-            Name = "name1",
-            Price = 10,
-            Image = new() { Url = "testurl", Alt = "image" },
-            Quantity = 5
-        };
-        var cart = new CartDb() { Id = _id, Items = new() { cartItem } };
+        var cartItem = new CartItemDb(1, "name1", 10, 5, new() { Url = "testurl", Alt = "image" });
+        var cart = new CartDb(_id, new() { cartItem });
 
         var repo = new CartRepository(DbFile);
 
@@ -58,25 +51,11 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to update single item")]
     public void TestUpdateSingleItem()
     {
-        var cartItem = new CartItemDb()
-        {
-            Id = 1,
-            Name = "name1",
-            Price = 10,
-            Image = new() { Url = "testurl", Alt = "image" },
-            Quantity = 5
-        };
-        var cart = new CartDb() { Id = _id, Items = new() { cartItem } };
+        var cartItem = new CartItemDb(1, "name1", 10, 5, new() { Url = "testurl", Alt = "image" });
+        var cart = new CartDb(_id, new() { cartItem });
 
-        var updatedItem = new CartItemDb()
-        {
-            Id = 1,
-            Name = "name2",
-            Price = 20,
-            Image = new() { Url = "testur2", Alt = "image2" },
-            Quantity = 10
-        };
-        var updatedCart = cart with { Items = new() { updatedItem } };
+        var updatedItem = new CartItemDb(1, "name2", 20, 10, new() { Url = "testurl2", Alt = "image2" });
+        var updatedCart = new CartDb(_id, new() { updatedItem });
 
         var repo = new CartRepository(DbFile);
 

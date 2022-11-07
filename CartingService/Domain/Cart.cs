@@ -1,8 +1,6 @@
 ﻿namespace Domain;
 
-public record Cart
+public record Cart(string Id, List<CartItem> Items)
 {
-    public Guid Id { get; init; }
-
-    public IList<CartItem> Items { get; init; } = new List<CartItem>();
+    public Cart() : this("", default) { }
 }

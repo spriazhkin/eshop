@@ -1,6 +1,8 @@
 ﻿using Api.Models;
+using Api.Models.Commands;
 using AutoMapper;
 using Domain;
+using Domain.Commands;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Main")]
@@ -20,7 +22,10 @@ public class ApiProfile : Profile
         CreateMap<Cart, CartModel>();
         CreateMap<CartModel, Cart>();
         CreateMap<Cart, IList<CartItemModel>>()
-            .ConvertUsing((cart, items, context) =>
+            .ConvertUsing((cart, _, context) =>
                 context.Mapper.Map<IList<CartItemModel>>(cart.Items));
+
+        CreateMap<RemoveItemCommandModel, RemoveItemCommand>();
+        CreateMap<AddItemCommandModel, AddItemCommand>();
     }
 }

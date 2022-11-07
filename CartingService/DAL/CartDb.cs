@@ -1,8 +1,6 @@
 ﻿namespace DAL;
 
-public record CartDb
+public record CartDb(string Id, List<CartItemDb> Items)
 {
-    public Guid Id { get; init; }
-
-    public List<CartItemDb> Items { get; init; } = new List<CartItemDb>();
+    public CartDb() : this("", new List<CartItemDb>()) { }
 }

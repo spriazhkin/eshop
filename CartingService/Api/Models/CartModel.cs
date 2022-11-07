@@ -1,8 +1,6 @@
 ﻿namespace Api.Models;
 
-public record CartModel
+public record CartModel(string Id, List<CartItemModel> Items)
 {
-    public Guid Id { get; init; }
-
-    public List<CartItemModel> Items { get; init; } = new List<CartItemModel>();
+    public CartModel() : this("", default) { }
 }

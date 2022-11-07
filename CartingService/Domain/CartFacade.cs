@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DAL;
+using Domain.Commands;
 using Domain.Exceptions;
 
 namespace Domain;
@@ -15,12 +16,12 @@ internal class CartFacade : ICartFacade
         _mapper = mapper;
     }
 
-    public Cart Get(Guid id)
+    public Cart Get(string id)
     {
         var cartDb = _repository.Get(id);
         if (cartDb is null)
         {
-            throw new EntityNotFoundException($"Cart with id {id} does not exist");
+            throw new EntityNotFoundException($"Cart {id} does not exist");
         }
         return _mapper.Map<Cart>(cartDb);
     }
@@ -35,5 +36,53 @@ internal class CartFacade : ICartFacade
     {
         var cartDb = _mapper.Map<CartDb>(cart);
         _repository.Create(cartDb);
+    }
+
+    public void AddItem(AddItemCommand command)
+    {
+        var cartDb = _repository.Get(command.CartId);
+        if (cartDb is null)
+        {
+            cartDb = _mapper.Map<CartDb>(command);
+            _repository.Create(cartDb);
+            return;
+        }
+
+        ValidateAdd(command, cartDb);
+
+        var itemDb = _mapper.Map<CartItemDb>(command);
+        cartDb.Items.Add(itemDb);
+        _repository.Update(cartDb);
+        return;
+    }
+
+    private void ValidateAdd(AddItemCommand command, CartDb cartDb)
+    {
+        if (cartDb.Items.Any(i => i.Id == command.Item.Id))
+        {
+            throw new ValidationException($"Cart {command.CartId} already has item {command.Item.Id}");
+        }
+    }
+
+    public void RemoveItem(RemoveItemCommand command)
+    {
+        var cartDb = _repository.Get(command.CartId);
+
+        ValidateRemove(command, cartDb);
+
+        cartDb.Items.RemoveAll(i => i.Id == command.ItemId);
+        _repository.Update(cartDb);
+    }
+
+    private static void ValidateRemove(RemoveItemCommand command, CartDb cartDb)
+    {
+        if (cartDb is null)
+        {
+            throw new ValidationException($"Cart {command.CartId} does not exist");
+        }
+        if (!cartDb.Items.Any(i => i.Id == command.ItemId))
+        {
+            throw new ValidationException($"Cart {command.CartId} has no item {command.ItemId}");
+        }
     }
 }
