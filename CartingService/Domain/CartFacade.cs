@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DAL;
+using Domain.Exceptions;
 
 namespace Domain;
 
@@ -17,6 +18,10 @@ internal class CartFacade : ICartFacade
     public Cart Get(Guid id)
     {
         var cartDb = _repository.Get(id);
+        if (cartDb is null)
+        {
+            throw new EntityNotFoundException($"Cart with id {id} does not exist");
+        }
         return _mapper.Map<Cart>(cartDb);
     }
 
