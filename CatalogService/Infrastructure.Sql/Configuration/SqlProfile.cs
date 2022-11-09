@@ -6,6 +6,7 @@ using Infrastructure.Sql.Items;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Infrastructure.Sql.Tests.Integration")]
+[assembly: InternalsVisibleTo("Main")]
 
 namespace Infrastructure.Sql.Configuration;
 

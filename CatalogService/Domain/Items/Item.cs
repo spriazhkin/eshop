@@ -1,18 +1,7 @@
 ﻿namespace Domain.Items;
 
-public record Item
+public record Item(Guid Id, string Name, string Description, string Image,
+    Guid CategoryId, decimal Price, int Amount)
 {
-    public Guid Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-
-    public string? Description { get; set; } = string.Empty;
-
-    public string? Image { get; set; } = string.Empty;
-
-    public Guid CategoryId { get; set; }
-
-    public decimal Price { get; set; }
-
-    public int Amount { get; set; }
+    public Item(): this(default, "", "", "", default, default, default) { }
 }

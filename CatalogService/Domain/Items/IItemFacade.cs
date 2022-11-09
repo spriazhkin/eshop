@@ -4,7 +4,7 @@ public interface IItemFacade
 {
     Task<Item> GetAsync(Guid Id);
 
-    Task<List<Item>> GetByCategoryIdAsync(Guid categoryId);
+    Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset);
 
     Task CreateAsync(Item item);
 

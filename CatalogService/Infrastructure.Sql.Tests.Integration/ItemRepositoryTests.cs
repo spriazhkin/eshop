@@ -9,13 +9,14 @@ namespace Infrastructure.Sql.Tests.Integration
     {
         private readonly DatabaseFixture _fixture;
         private readonly IMapper _mapper;
-        private readonly Guid _guid = new("a9967493-3f16-49f2-bbf5-a796932cbfa7");
+        private readonly Guid _guid = new("a9867493-3f16-49f2-bbf5-a796932cbfa7");
 
         public ItemRepositoryTests(DatabaseFixture fixture)
         {
             _fixture = fixture;
             _mapper = new MapperConfiguration(mc => mc.AddProfile(new SqlProfile())).CreateMapper();
             using var context = _fixture.CreateContext();
+            context.Categories.RemoveRange(context.Categories);
             context.Items.RemoveRange(context.Items);
             context.SaveChanges();
         }
@@ -31,6 +32,23 @@ namespace Infrastructure.Sql.Tests.Integration
             var actualItem = await repo.GetAsync(_guid);
 
             Assert.Equal(item, actualItem);
+        }
+
+        [Fact(DisplayName = "Able to update item", Skip = "Concurrency issues")]
+        public async Task TestUdpate()
+        {
+            var item = new Item() { Id = _guid, Name = "test" };
+            var updatedItem = item with { Name = "test2" };
+
+            using var context = _fixture.CreateContext();
+            var repo = new ItemRepository(context, _mapper);
+
+            await repo.CreateAsync(item);
+            await repo.UpdateAsync(updatedItem);
+
+            var actualItem = await repo.GetAsync(_guid);
+
+            Assert.Equal(updatedItem, actualItem);
         }
     }
 }

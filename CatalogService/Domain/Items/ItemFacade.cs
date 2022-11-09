@@ -2,6 +2,13 @@
 
 internal class ItemFacade : IItemFacade
 {
+    private readonly IItemRepository _repository;
+
+    public ItemFacade(IItemRepository repository)
+    {
+        _repository = repository;
+    }
+
     public Task CreateAsync(Item item)
     {
         throw new NotImplementedException();
@@ -17,7 +24,7 @@ internal class ItemFacade : IItemFacade
         throw new NotImplementedException();
     }
 
-    public Task<List<Item>> GetByCategoryIdAsync(Guid categoryId)
+    public Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset)
     {
         throw new NotImplementedException();
     }
