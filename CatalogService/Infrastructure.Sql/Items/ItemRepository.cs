@@ -14,11 +14,13 @@ internal class ItemRepository : RepositoryIdBase<Item, ItemDb>, IItemRepository
         _mapper = mapper;
     }
 
-    public async Task<List<Item>> GetByCategoryIdAsync(Guid categoryId)
+    public async Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset)
     {
         var itemsDb = await GetIQueryable()
             .AsNoTracking()
             .Where(i => i.CategoryId == categoryId)
+            .Skip(offset)
+            .Take(limit)
             .ToListAsync();
 
         return _mapper.Map<List<Item>>(itemsDb);

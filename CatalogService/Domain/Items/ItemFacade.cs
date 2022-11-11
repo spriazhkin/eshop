@@ -1,36 +1,44 @@
-﻿namespace Domain.Items;
+﻿using Domain.Categories;
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Items;
 
 internal class ItemFacade : IItemFacade
 {
     private readonly IItemRepository _repository;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public ItemFacade(IItemRepository repository)
+    public ItemFacade(IItemRepository repository, ICategoryRepository categoryRepository)
     {
         _repository = repository;
+        _categoryRepository = categoryRepository;
     }
 
-    public Task CreateAsync(Item item)
+    public async Task CreateAsync(Item item)
     {
-        throw new NotImplementedException();
+        await ValidateAsync(item);
+        await _repository.CreateAsync(item);
     }
 
-    public Task DeleteAsync(Guid Id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task DeleteAsync(Guid Id) => _repository.DeleteAsync(Id);
 
-    public Task<Item> GetAsync(Guid Id)
-    {
-        throw new NotImplementedException();
-    }
+    public Task<Item> GetAsync(Guid Id) => _repository.GetAsync(Id);
 
     public Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset)
+        => _repository.GetByCategoryIdAsync(categoryId, limit, offset);
+
+    public async Task UpdateAsync(Item item)
     {
-        throw new NotImplementedException();
+        await ValidateAsync(item);
+        await _repository.UpdateAsync(item);
     }
 
-    public Task UpdateAsync(Item item)
+    private async Task ValidateAsync(Item item)
     {
-        throw new NotImplementedException();
+        var (_, found) = await _categoryRepository.TryGetAsync(item.CategoryId);
+        if (!found)
+        {
+            throw new ValidationException($"Item category {item.CategoryId} does not exists");
+        }
     }
 }

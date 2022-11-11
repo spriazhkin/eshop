@@ -19,7 +19,7 @@ internal static class StartupHelper
         services.AddDbContext<CatalogContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         services.AddFluentValidationAutoValidation();
-        services.AddValidatorsFromAssemblyContaining<CartModelValidator>();
+        services.AddValidatorsFromAssemblyContaining<CategoryModelValidator>();
         services.AddAutoMapper(typeof(SqlProfile), typeof(ApiProfile));
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();

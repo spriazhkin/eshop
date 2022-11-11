@@ -1,13 +1,12 @@
 ﻿using Api.Models;
 using AutoMapper;
-using Domain.Categories;
 using Domain.Items;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/categories")]
+    [Route("api/items")]
     public class ItemController : ControllerBase
     {
         private readonly IItemFacade _facade;
@@ -31,6 +30,17 @@ namespace Api.Controllers
         {
             var item = await _facade.GetByCategoryIdAsync(categoryId, limit, offset);
             return _mapper.Map<List<ItemModel>>(item);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpGet("{id}")]
+        public async Task<ItemModel> GetAsync([FromRoute] Guid id)
+        {
+            var item = await _facade.GetAsync(id);
+            return _mapper.Map<ItemModel>(item);
         }
 
         /// <summary>

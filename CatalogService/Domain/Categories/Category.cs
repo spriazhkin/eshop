@@ -1,12 +1,6 @@
 ﻿namespace Domain.Categories;
 
-public record Category
+public record Category(Guid Id, string Name, string ImageUrl, Guid? ParentId)
 {
-    public Guid Id { get; set; }
-
-    public string Name { get; init; } = string.Empty;
-
-    public string? ImageUrl { get; init; }
-
-    public Guid? ParentId { get; init; }
+    public Category() : this(default, "", default, default) { }
 }

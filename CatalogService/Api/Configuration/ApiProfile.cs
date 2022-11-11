@@ -1,7 +1,7 @@
 ﻿using Api.Models;
-using Api.Models.Commands;
 using AutoMapper;
-using Domain;
+using Domain.Categories;
+using Domain.Items;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Main")]
@@ -12,6 +12,10 @@ public class ApiProfile : Profile
 {
     public ApiProfile()
     {
-        
+        CreateMap<ItemModel, Item>();
+        CreateMap<Item, ItemModel>();
+
+        CreateMap<CategoryModel, Category>();
+        CreateMap<Category, CategoryModel>();
     }
 }

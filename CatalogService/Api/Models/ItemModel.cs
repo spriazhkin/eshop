@@ -1,6 +1,6 @@
 ﻿namespace Api.Models;
 
-public record ItemModel(int Id, string Name, decimal Price, int Quantity)
+public record ItemModel(Guid Id, string Name, string Description, string Image,
+    Guid CategoryId, decimal Price, int Amount)
 {
-    public ItemModel() : this(default, "", default, default) { }
 }

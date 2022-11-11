@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Sql.Tests.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Sql.Tests.Integration", "Infrastructure.Sql.Tests.Integration\Infrastructure.Sql.Tests.Integration.csproj", "{B99D5282-D1E1-4AC1-9D28-D7A128519D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{CACB6E4A-EDEF-41E1-94CB-E7E83A696601}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{CACB6E4A-EDEF-41E1-94CB-E7E83A696601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{8E400883-48E5-41C2-A460-9C0C0AFCDE41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Main", "Main\Main.csproj", "{8E400883-48E5-41C2-A460-9C0C0AFCDE41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Tests.Unit", "Api.Tests\Api.Tests.Unit.csproj", "{726BB418-3852-46A8-807B-846BB8B7F4E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{8E400883-48E5-41C2-A460-9C0C0AFCDE41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E400883-48E5-41C2-A460-9C0C0AFCDE41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E400883-48E5-41C2-A460-9C0C0AFCDE41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726BB418-3852-46A8-807B-846BB8B7F4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726BB418-3852-46A8-807B-846BB8B7F4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726BB418-3852-46A8-807B-846BB8B7F4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726BB418-3852-46A8-807B-846BB8B7F4E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
