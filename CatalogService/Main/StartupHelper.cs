@@ -1,9 +1,11 @@
 ﻿using Api.Configuration;
 using Api.Validators;
+using Azure.Messaging.ServiceBus;
 using Domain.Categories;
 using Domain.Items;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.ServiceBus.Items;
 using Infrastructure.Sql;
 using Infrastructure.Sql.Categories;
 using Infrastructure.Sql.Configuration;
@@ -20,10 +22,12 @@ internal static class StartupHelper
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<CategoryModelValidator>();
-        services.AddAutoMapper(typeof(SqlProfile), typeof(ApiProfile));
+        services.AddAutoMapper(typeof(SqlProfile), typeof(ApiProfile), typeof(ServiceBusProfile));
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IItemFacade, ItemFacade>();
         services.AddScoped<ICategoryFacade, CategoryFacade>();
+        services.AddScoped<IItemPublisher, ItemPublisher>();
+        services.AddScoped(_ => new ServiceBusClient(configuration.GetConnectionString("ServiceBus")));
     }
 }

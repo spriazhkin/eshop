@@ -7,11 +7,16 @@ internal class ItemFacade : IItemFacade
 {
     private readonly IItemRepository _repository;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IItemPublisher _publisher;
 
-    public ItemFacade(IItemRepository repository, ICategoryRepository categoryRepository)
+    public ItemFacade(
+        IItemRepository repository,
+        ICategoryRepository categoryRepository,
+        IItemPublisher publisher)
     {
         _repository = repository;
         _categoryRepository = categoryRepository;
+        _publisher = publisher;
     }
 
     public async Task CreateAsync(Item item)
@@ -31,6 +36,7 @@ internal class ItemFacade : IItemFacade
     {
         await ValidateAsync(item);
         await _repository.UpdateAsync(item);
+        await _publisher.PublishUpdatedAsync(item);
     }
 
     private async Task ValidateAsync(Item item)
