@@ -41,7 +41,7 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-Main.StartupHelper.RegisterComponents(builder.Services);
+Main.StartupHelper.RegisterComponents(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 

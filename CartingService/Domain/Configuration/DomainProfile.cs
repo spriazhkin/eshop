@@ -29,5 +29,12 @@ public class DomainProfile : Profile
 
         CreateMap<Image, ImageDb>();
         CreateMap<ImageDb, Image>();
+
+        CreateMap<UpdateAllItemOccurencesCommand, CartItemDb>()
+            .ForMember(dest => dest.Quantity, opt => opt.Ignore())
+            .ForMember(dest => dest.Price, opt => opt.Ignore())
+            .ForMember(dest => dest.Image, opt =>
+                opt.MapFrom(src => src.Image == null ? null
+                    : new ImageDb { Url = src.Image }));
     }
 }

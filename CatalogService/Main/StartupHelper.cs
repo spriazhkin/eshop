@@ -5,6 +5,7 @@ using Domain.Categories;
 using Domain.Items;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.ServiceBus;
 using Infrastructure.ServiceBus.Items;
 using Infrastructure.Sql;
 using Infrastructure.Sql.Categories;
@@ -28,6 +29,7 @@ internal static class StartupHelper
         services.AddScoped<IItemFacade, ItemFacade>();
         services.AddScoped<ICategoryFacade, CategoryFacade>();
         services.AddScoped<IItemPublisher, ItemPublisher>();
+        services.AddSingleton(_ => new TypeInfoConverter(new List<Type> { typeof(ItemUpdatedMessage) }));
         services.AddScoped(_ => new ServiceBusClient(configuration.GetConnectionString("ServiceBus")));
     }
 }

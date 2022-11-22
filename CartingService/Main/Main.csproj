@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Api\Api.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\ServiceBus\ServiceBus.csproj" />
   </ItemGroup>
 
 </Project>
