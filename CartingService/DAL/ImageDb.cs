@@ -1,8 +1,6 @@
 ﻿namespace DAL;
 
-public record ImageDb
+public record ImageDb(string Url, string Alt)
 {
-    public string Url { get; set; } = string.Empty;
-
-    public string Alt { get; set; } = string.Empty;
+    public ImageDb() : this("", "") { }
 }

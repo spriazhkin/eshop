@@ -9,6 +9,8 @@ public interface ICategoryRepository
     Task<IList<Category>> GetAsync();
 
     Task<Category> GetAsync(Guid Id);
+    
+    Task<(Category entity, bool found)> TryGetAsync(Guid value);
 
     Task UpdateAsync(Category category);
 }

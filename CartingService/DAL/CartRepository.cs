@@ -12,7 +12,7 @@ public class CartRepository : ICartRepository
         _connectionString = connectionString;
     }
 
-    public CartDb Get(Guid id)
+    public CartDb Get(string id)
     {
         using var db = new LiteDatabase(_connectionString);
         var col = db.GetCollection<CartDb>(CollectionName);

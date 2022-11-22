@@ -1,14 +1,6 @@
 ﻿namespace Domain;
 
-public record CartItem
+public record CartItem(int Id, string Name, decimal Price, int Quantity, Image Image)
 {
-    public int Id { get; init; }
-
-    public string Name { get; init; } = string.Empty;
-
-    public Image? Image { get; init; }
-
-    public decimal Price { get; init; }
-
-    public int Quantity { get; set; }
+    public CartItem() : this(default, "", default, default, default) { }
 }

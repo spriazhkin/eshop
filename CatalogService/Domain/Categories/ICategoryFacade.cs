@@ -6,7 +6,7 @@ public interface ICategoryFacade
 
     Task DeleteAsync(Guid Id);
 
-    Task<List<Category>> GetAsync();
+    Task<IList<Category>> GetAsync();
 
     Task<Category> GetAsync(Guid Id);
 

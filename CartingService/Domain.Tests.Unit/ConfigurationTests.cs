@@ -1,4 +1,5 @@
 using AutoMapper;
+using Domain.Configuration;
 
 namespace Domain.Tests.Unit;
 

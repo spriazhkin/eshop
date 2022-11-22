@@ -2,5 +2,5 @@
 
 public interface IEntityDb
 {
-    Guid Id { get; }
+    Guid Id { get; init; }
 }

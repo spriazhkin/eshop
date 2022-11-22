@@ -1,18 +1,6 @@
 ﻿namespace Infrastructure.Sql.Items;
 
-public record ItemDb : IEntityDb
+public record ItemDb(Guid Id, string Name, string Description, string Image,
+    Guid CategoryId, decimal Price, int Amount) : IEntityDb
 {
-    public Guid Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-
-    public string Description { get; set; } = string.Empty;
-
-    public string Image { get; set; } = string.Empty;
-
-    public Guid CategoryId { get; set; }
-
-    public decimal Price { get; set; }
-
-    public int Amount { get; set; }
 }

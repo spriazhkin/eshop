@@ -1,8 +1,14 @@
-﻿namespace Domain;
+﻿using Domain.Commands;
+
+namespace Domain;
 
 public interface ICartFacade
 {
-    Cart Get(Guid id);
+    Cart Get(string id);
+
+    void AddItem(AddItemCommand command);
+
+    void RemoveItem(RemoveItemCommand command);
 
     void Create(Cart cart);
     

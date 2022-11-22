@@ -8,7 +8,7 @@ public interface IItemRepository
     
     Task<Item> GetAsync(Guid Id);
     
-    Task<List<Item>> GetByCategoryIdAsync(Guid categoryId);
+    Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset);
     
     Task UpdateAsync(Item item);
 }

@@ -1,29 +1,43 @@
-﻿namespace Domain.Categories;
+﻿using Domain.Exceptions;
+
+namespace Domain.Categories;
 
 internal class CategoryFacade : ICategoryFacade
 {
-    public Task CreateAsync(Category category)
+    private readonly ICategoryRepository _repository;
+
+    public CategoryFacade(ICategoryRepository repository)
     {
-        throw new NotImplementedException();
+        _repository = repository;
     }
 
-    public Task DeleteAsync(Guid Id)
+    public async Task CreateAsync(Category category)
     {
-        throw new NotImplementedException();
+        await ValidateAsync(category);
+        await _repository.CreateAsync(category);
     }
 
-    public Task<Category> GetAsync(Guid Id)
+    public Task DeleteAsync(Guid Id) => _repository.DeleteAsync(Id);
+
+    public Task<Category> GetAsync(Guid Id) => _repository.GetAsync(Id);
+
+    public Task<IList<Category>> GetAsync() => _repository.GetAsync();
+
+    public async Task UpdateAsync(Category category)
     {
-        throw new NotImplementedException();
+        await ValidateAsync(category);
+        await _repository.UpdateAsync(category);
     }
 
-    public Task<List<Category>> GetAsync()
+    private async Task ValidateAsync(Category category)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(Category category)
-    {
-        throw new NotImplementedException();
+        if (category.ParentId.HasValue)
+        {
+            var (_, found) = await _repository.TryGetAsync(category.ParentId.Value);
+            if (!found)
+            {
+                throw new ValidationException($"Parent category {category.ParentId.Value} does not exists");
+            }
+        }
     }
 }

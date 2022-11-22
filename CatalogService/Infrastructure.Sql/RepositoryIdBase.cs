@@ -26,9 +26,9 @@ internal abstract class RepositoryIdBase<TEntity, TEntityDb>
         });
     }
 
-    public Task UpdateAsync(TEntity entity)
+    public async Task UpdateAsync(TEntity entity)
     {
-        return DoAndSaveOrResetAsync(async () =>
+        await DoAndSaveOrResetAsync(async () =>
         {
             var id = _mapper.Map<TEntityDb>(entity).Id;
             var entityDb = await GetIQueryable().SingleOrDefaultAsync(e => e.Id == id);
@@ -48,22 +48,28 @@ internal abstract class RepositoryIdBase<TEntity, TEntityDb>
         return _mapper.Map<TEntity>(entity);
     }
 
+    public async Task<(TEntity entity, bool found)> TryGetAsync(Guid id)
+    {
+        var entity = await GetIQueryable().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+        return (_mapper.Map<TEntity>(entity), entity != null);
+    }
+
     public Task DeleteAsync(Guid id)
     {
-        return DoAndSaveOrResetAsync(() =>
+        return DoAndSaveOrResetAsync(async () =>
         {
-            var entity = _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+            var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
             _dbContext.Remove(entity);
         });
     }
 
     protected virtual IQueryable<TEntityDb> GetIQueryable() => _dbSet;
 
-    protected async Task DoAndSaveOrResetAsync(Action action)
+    protected async Task DoAndSaveOrResetAsync(Func<Task> action)
     {
         try
         {
-            action();
+            await action();
             await _dbContext.SaveChangesAsync();
         }
         catch
