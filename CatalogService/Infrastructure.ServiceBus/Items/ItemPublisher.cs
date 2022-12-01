@@ -2,6 +2,8 @@
 using Azure.Messaging.ServiceBus;
 using Domain.Items;
 using Newtonsoft.Json;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 
 namespace Infrastructure.ServiceBus.Items
 {
@@ -27,15 +29,22 @@ namespace Infrastructure.ServiceBus.Items
             await _sender.DisposeAsync();
         }
 
-        public async Task PublishUpdatedAsync(Item item)
+        private async Task PublishMessage<T>(object entity)
         {
-            var itemMessage = _mapper.Map<ItemUpdatedMessage>(item);
+            var itemMessage = _mapper.Map<T>(entity);
             var body = JsonConvert.SerializeObject(itemMessage, _converter);
             var message = new ServiceBusMessage(body)
             {
                 ContentType = "application/json"
             };
-            await _sender.SendMessageAsync(message);
+
+            var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
+            var policy = Policy.Handle<ServiceBusException>()
+                .WaitAndRetryAsync(delay);
+
+            await policy.ExecuteAsync(() => _sender.SendMessageAsync(message));
         }
+
+        public Task PublishUpdatedAsync(Item item) => PublishMessage<ItemUpdatedMessage>(item);
     }
 }
