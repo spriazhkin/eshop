@@ -6,5 +6,9 @@ public interface ICartRepository
     
     CartDb Get(string id);
     
+    IList<CartDb> GetCartsWithItem(Guid itemId);
+    
     void Update(CartDb cart);
+    
+    void Update(IList<CartDb> carts);
 }

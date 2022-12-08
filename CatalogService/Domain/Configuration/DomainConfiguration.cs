@@ -2,9 +2,8 @@
 
 [assembly: InternalsVisibleTo("Main")]
 
-namespace Domain.Configuration
+namespace Domain.Configuration;
+
+internal class DomainConfiguration
 {
-    internal class DomainConfiguration
-    {
-    }
 }

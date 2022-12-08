@@ -85,4 +85,16 @@ internal class CartFacade : ICartFacade
             throw new ValidationException($"Cart {command.CartId} has no item {command.ItemId}");
         }
     }
+
+    public void UpdateAllItemOccurences(UpdateAllItemOccurencesCommand command)
+    {
+        var carts = _repository.GetCartsWithItem(command.Id);
+        foreach (var cart in carts)
+        {
+            var itemToUpdate = cart.Items.Single(i => i.Id == command.Id);
+            itemToUpdate = _mapper.Map(command, itemToUpdate);
+        }
+
+        _repository.Update(carts);
+    }
 }

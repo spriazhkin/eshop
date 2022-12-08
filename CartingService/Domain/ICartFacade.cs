@@ -13,4 +13,6 @@ public interface ICartFacade
     void Create(Cart cart);
     
     void Update(Cart cart);
+
+    void UpdateAllItemOccurences(UpdateAllItemOccurencesCommand command);
 }
