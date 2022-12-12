@@ -1,11 +1,13 @@
 ﻿using Api.Models;
 using AutoMapper;
 using Domain.Categories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/categories")]
 public class CategoryController : ControllerBase
 {
@@ -33,6 +35,7 @@ public class CategoryController : ControllerBase
     /// 
     /// </summary>
     /// <param name="categoryModel"></param>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task CreateAsync([FromBody] CategoryModel categoryModel)
     {
@@ -44,6 +47,7 @@ public class CategoryController : ControllerBase
     /// 
     /// </summary>
     /// <param name="categoryModel"></param>
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task UpdateAsync([FromBody] CategoryModel categoryModel)
     {
@@ -55,6 +59,7 @@ public class CategoryController : ControllerBase
     /// 
     /// </summary>
     /// <param name="id"></param>
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task DeleteAsync([FromRoute] Guid id)
     {

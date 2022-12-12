@@ -21,13 +21,16 @@ internal static class StartupHelper
     {
         services.AddDbContext<CatalogContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<CategoryModelValidator>();
         services.AddAutoMapper(typeof(SqlProfile), typeof(ApiProfile), typeof(ServiceBusProfile));
+        
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IItemFacade, ItemFacade>();
         services.AddScoped<ICategoryFacade, CategoryFacade>();
+        
         services.AddScoped<IItemPublisher, ItemPublisher>();
         services.AddSingleton(_ => new TypeInfoConverter(new List<Type> { typeof(ItemUpdatedMessage) }));
         services.AddScoped(_ => new ServiceBusClient(configuration.GetConnectionString("ServiceBus")));
