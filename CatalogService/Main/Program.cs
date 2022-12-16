@@ -1,6 +1,8 @@
 using Api.Configuration;
 using Api.Controllers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -28,6 +30,11 @@ builder.Services.AddSwaggerGen(c =>
 
 Main.StartupHelper.RegisterComponents(builder.Services , builder.Configuration);
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))
+    .EnableTokenAcquisitionToCallDownstreamApi()
+    .AddInMemoryTokenCaches();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +48,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

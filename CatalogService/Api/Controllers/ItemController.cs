@@ -1,11 +1,13 @@
 ﻿using Api.Models;
 using AutoMapper;
 using Domain.Items;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/items")]
 public class ItemController : ControllerBase
 {
@@ -47,6 +49,7 @@ public class ItemController : ControllerBase
     /// 
     /// </summary>
     /// <param name="itemModel"></param>
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task CreateAsync([FromBody] ItemModel itemModel)
     {
@@ -58,6 +61,7 @@ public class ItemController : ControllerBase
     /// 
     /// </summary>
     /// <param name="itemModel"></param>
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task UpdateAsync([FromBody] ItemModel itemModel)
     {
@@ -69,6 +73,7 @@ public class ItemController : ControllerBase
     /// 
     /// </summary>
     /// <param name="id"></param>
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task DeleteAsync([FromRoute] Guid id)
     {
