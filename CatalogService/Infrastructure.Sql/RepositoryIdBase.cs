@@ -1,4 +1,5 @@
 using AutoMapper;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Sql;
@@ -44,7 +45,11 @@ internal abstract class RepositoryIdBase<TEntity, TEntityDb>
 
     public async Task<TEntity> GetAsync(Guid id)
     {
-        var entity = await GetIQueryable().AsNoTracking().FirstAsync(e => e.Id == id);
+        var entity = await GetIQueryable().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+        if (entity == null)
+        {
+            throw new EntityNotFoundException($"{typeof(TEntity).Name} with id {id} not found");
+        }
         return _mapper.Map<TEntity>(entity);
     }
 

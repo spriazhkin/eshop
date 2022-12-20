@@ -32,6 +32,16 @@ internal class ItemFacade : IItemFacade
     public Task<List<Item>> GetByCategoryIdAsync(Guid categoryId, int limit, int offset)
         => _repository.GetByCategoryIdAsync(categoryId, limit, offset);
 
+    public async Task<Dictionary<string, string>> GetPropertiesAsync(Guid itemId)
+    {
+        var item = await _repository.GetAsync(itemId);
+        return new Dictionary<string, string>() 
+        {
+            { "name", $"{item.Name}" },
+            { "testProperty", "testProperty" }
+        };
+    }
+
     public async Task UpdateAsync(Item item)
     {
         await ValidateAsync(item);
