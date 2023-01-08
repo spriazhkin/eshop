@@ -1,0 +1,16 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v{v}/carts/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7015
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v{v}/carts/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    }
+  ]
+}

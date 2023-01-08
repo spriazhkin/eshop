@@ -13,8 +13,7 @@ builder.ConfigureAppConfiguration((hostingContext, config) =>
         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
         .AddJsonFile("appsettings.json", true, true)
         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-        .AddJsonFile("ocelot.global.json")
-        .AddJsonFile("ocelot.routes.json")
+        .AddOcelot(hostingContext.HostingEnvironment)
         .AddEnvironmentVariables();
 });
 
