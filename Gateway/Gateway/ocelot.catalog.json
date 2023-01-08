@@ -1,4 +1,13 @@
 {
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "item-info",
+        "item-properties"
+      ],
+      "UpstreamPathTemplate": "/api/items-with-properties/{id}"
+    }
+  ],
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/categories/{id}",
@@ -40,6 +49,19 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/items/{id}/properties",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7235
+        }
+      ],
+      "UpstreamPathTemplate": "/api/items/{id}/properties",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "item-properties"
+    },
+    {
       "DownstreamPathTemplate": "/api/items/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -49,7 +71,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/items/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ]
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "Key": "item-info"
     },
     {
       "DownstreamPathTemplate": "/api/items",
