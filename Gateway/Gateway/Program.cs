@@ -1,5 +1,6 @@
 using Ocelot.Middleware;
 using Ocelot.DependencyInjection;
+using Ocelot.Cache.CacheManager;
 
 var builder = new WebHostBuilder();
 
@@ -12,13 +13,18 @@ builder.ConfigureAppConfiguration((hostingContext, config) =>
         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
         .AddJsonFile("appsettings.json", true, true)
         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-        .AddJsonFile("ocelot.json")
+        .AddJsonFile("ocelot.global.json")
+        .AddJsonFile("ocelot.routes.json")
         .AddEnvironmentVariables();
 });
 
 builder.ConfigureServices(s =>
 {
-    s.AddOcelot();
+    s.AddOcelot()
+        .AddCacheManager(x =>
+        {
+            x.WithDictionaryHandle();
+        });
 });
 
 builder.ConfigureLogging((hostingContext, logging) =>
