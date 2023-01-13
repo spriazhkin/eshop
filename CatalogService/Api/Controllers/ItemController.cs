@@ -48,6 +48,14 @@ public class ItemController : ControllerBase
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="id"></param>
+    [HttpGet("{id}/properties")]
+    public Task<Dictionary<string, string>> GetPropertiesAsync([FromRoute] Guid id)
+        => _facade.GetPropertiesAsync(id);
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="itemModel"></param>
     [Authorize(Roles = "Admin")]
     [HttpPost]
