@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: Carting Service        
     - name: Restore dependencies
       run: dotnet restore
       working-directory: CartingService
@@ -29,3 +30,20 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: CartingService
+    - name: Catalog Service
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: CatalogService
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: CatalogService
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: CatalogService
+    - name: Gateway
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: Gateway
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: Gateway
