@@ -28,7 +28,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: CartingService
     - name: Test
-      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName\!~Integration
+      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName!~Integration
       working-directory: CartingService
     - run: echo Building Catalog Service
     - name: Restore dependencies
@@ -38,7 +38,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: CatalogService
     - name: Test
-      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName\!~Integration
+      run: dotnet test --no-build --verbosity normal --filter FullyQualifiedName!~Integration
       working-directory: CatalogService
     - run: echo Building Gateway
     - name: Restore dependencies
