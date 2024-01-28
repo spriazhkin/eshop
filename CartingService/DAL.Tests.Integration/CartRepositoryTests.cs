@@ -22,7 +22,7 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to create and get cart")]
     public void TestCreateGet()
     {
-        var cart = new CartDb(_id, new());
+        var cart = new CartDb(_id, []);
 
         var repo = new CartRepository(DbFile);
 
@@ -35,8 +35,8 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to create and get cart with data")]
     public void TestCreateGetAllProperties()
     {
-        var cartItem = new CartItemDb(_itemId, "name1", 10, 5, new() { Url = "testurl", Alt = "image" });
-        var cart = new CartDb(_id, new() { cartItem });
+        var cartItem = new CartItemDb(_itemId, "name1", 10, 5, new("testurl", "image"));
+        var cart = new CartDb(_id, [cartItem]);
 
         var repo = new CartRepository(DbFile);
 
@@ -52,11 +52,11 @@ public class CartRepositoryTests
     [Fact(DisplayName = "Able to update single item")]
     public void TestUpdateSingleItem()
     {
-        var cartItem = new CartItemDb(_itemId, "name1", 10, 5, new() { Url = "testurl", Alt = "image" });
-        var cart = new CartDb(_id, new() { cartItem });
+        var cartItem = new CartItemDb(_itemId, "name1", 10, 5, new("testurl", "image"));
+        var cart = new CartDb(_id, [cartItem]);
 
-        var updatedItem = new CartItemDb(_itemId, "name2", 20, 10, new() { Url = "testurl2", Alt = "image2" });
-        var updatedCart = new CartDb(_id, new() { updatedItem });
+        var updatedItem = new CartItemDb(_itemId, "name2", 20, 10, new("testurl2", "image2"));
+        var updatedCart = new CartDb(_id, [updatedItem]);
 
         var repo = new CartRepository(DbFile);
 

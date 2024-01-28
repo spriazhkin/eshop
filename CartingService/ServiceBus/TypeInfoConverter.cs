@@ -4,19 +4,15 @@ using Newtonsoft.Json.Serialization;
 
 namespace ServiceBus;
 
-internal class TypeInfoConverter : JsonConverter
+internal class TypeInfoConverter(IEnumerable<Type> types)
+    : JsonConverter
 {
-    private readonly JsonSerializer _serializer =
-        new JsonSerializer { ContractResolver = new CamelCasePropertyNamesContractResolver() };
-
-    private readonly IEnumerable<Type> _types;
-
-    public TypeInfoConverter(IEnumerable<Type> types)
+    private readonly JsonSerializer _serializer = new()
     {
-        _types = types;
-    }
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+    };
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
     {
         var jObject = JObject.FromObject(value, _serializer);
         jObject.AddFirst(new JProperty("_type", value.GetType().Name));
@@ -24,11 +20,11 @@ internal class TypeInfoConverter : JsonConverter
     }
 
     public override object ReadJson(
-        JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         var jObject = JToken.ReadFrom(reader);
         var typeName = jObject["_type"]?.Value<string>();
-        var type = _types.First(t => t.Name == typeName);
+        var type = types.First(t => t.Name == typeName);
         return jObject.ToObject(type);
     }
 
