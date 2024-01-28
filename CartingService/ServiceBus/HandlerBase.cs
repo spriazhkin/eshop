@@ -14,7 +14,7 @@ public abstract class HandlerBase : IHostedService, IAsyncDisposable
 
     protected abstract string Topic { get; }
 
-    internal HandlerBase(ServiceBusClient client, ILogger<HandlerBase> logger, TypeInfoConverter converter)
+    private protected HandlerBase(ServiceBusClient client, ILogger<HandlerBase> logger, TypeInfoConverter converter)
     {
         _processor = client.CreateProcessor(Topic);
         _logger = logger;

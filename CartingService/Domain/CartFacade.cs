@@ -53,12 +53,11 @@ internal class CartFacade : ICartFacade
         var itemDb = _mapper.Map<CartItemDb>(command);
         cartDb.Items.Add(itemDb);
         _repository.Update(cartDb);
-        return;
     }
 
     private void ValidateAdd(AddItemCommand command, CartDb cartDb)
     {
-        if (cartDb.Items.Any(i => i.Id == command.Item.Id))
+        if (cartDb.Items.Exists(i => i.Id == command.Item.Id))
         {
             throw new ValidationException($"Cart {command.CartId} already has item {command.Item.Id}");
         }
@@ -80,7 +79,7 @@ internal class CartFacade : ICartFacade
         {
             throw new ValidationException($"Cart {command.CartId} does not exist");
         }
-        if (!cartDb.Items.Any(i => i.Id == command.ItemId))
+        if (!cartDb.Items.Exists(i => i.Id == command.ItemId))
         {
             throw new ValidationException($"Cart {command.CartId} has no item {command.ItemId}");
         }
@@ -92,7 +91,7 @@ internal class CartFacade : ICartFacade
         foreach (var cart in carts)
         {
             var itemToUpdate = cart.Items.Single(i => i.Id == command.Id);
-            itemToUpdate = _mapper.Map(command, itemToUpdate);
+            _mapper.Map(command, itemToUpdate);
         }
 
         _repository.Update(carts);

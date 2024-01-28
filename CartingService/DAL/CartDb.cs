@@ -2,5 +2,5 @@
 
 public record CartDb(string Id, List<CartItemDb> Items)
 {
-    public CartDb() : this("", new List<CartItemDb>()) { }
+    public CartDb() : this("", []) { }
 }

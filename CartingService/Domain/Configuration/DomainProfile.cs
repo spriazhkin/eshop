@@ -35,6 +35,6 @@ public class DomainProfile : Profile
             .ForMember(dest => dest.Price, opt => opt.Ignore())
             .ForMember(dest => dest.Image, opt =>
                 opt.MapFrom(src => src.Image == null ? null
-                    : new ImageDb { Url = src.Image }));
+                    : new ImageDb(src.Image, string.Empty)));
     }
 }
