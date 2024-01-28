@@ -1,5 +1,5 @@
 ## Description
-Sample .Net application developed in late 2022 as part of a company learning program.<br>'
+Sample .Net application developed in late 2022 as part of a company learning program.<br>
 Usefull as a small tech demo
 
 ## Solution structure
